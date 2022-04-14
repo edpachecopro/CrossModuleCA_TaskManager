@@ -1,9 +1,12 @@
+//requiring electron, fs and uuid
 const electron = require("electron");
 const fs = require("fs");
 const uuid = require("uuid");
 
+
 const { app, BrowserWindow, Menu, ipcMain } = electron;
 
+//creating windows
 let todayWindow;
 let createWindow;
 let listWindow;
