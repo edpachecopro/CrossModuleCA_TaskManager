@@ -1,5 +1,4 @@
 
-
 .task-cont{
   
    border-radius: 0px 20px 20px 0px;
@@ -10,33 +9,45 @@
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     min-height: 80vh;
     border-radius: 20px;
+
 }
 
 .logo{
     background-color: #D9206E;
-    margin-left: -23px;
+    min-width: 105px;
     padding: 8px 10px 10px 15px;
     border-radius: 20px 0px 0px 0px;
 }
 
 .menu{
     height:80vh;
-    background-color: #1BA3C3;
-    margin-left: -23px;
+    padding-left: 10px;
+    background-color: #0a81af;
+    min-width: 105px;
+    color: white;
+   
+    
     border-radius: 0px 0px 0px 20px;
 }
 .ico{
-    background-color: #D9206E;
+
     width: 20%;
 }
 .list-task{
-    background-color: aquamarine;
+    align-content: center;
+
+    border-right: 1px solid rgb(188, 188, 188);
     padding-top: 40px;
     display: inline-block !important; 
 }
 .title{
     width: 50%;
     float: left;
-    background-color: antiquewhite;
+
     
+}
+.add-new{
+    margin-top: 40px;
+    padding-right: 100px;
+
 }
