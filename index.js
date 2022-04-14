@@ -47,7 +47,7 @@ const createWindowCreator = () => {
     },
     width: 600,
     height: 400,
-    title: "Create New Appointment"
+    title: "Add a new Assignment"
   });
 
   createWindow.setMenu(null);
@@ -65,7 +65,7 @@ const listWindowCreator = () => {
     },
     width: 600,
     height: 400,
-    title: "All Appointments"
+    title: "See all Assignments"
   });
 
   listWindow.setMenu(null);
@@ -115,7 +115,7 @@ const menuTemplate = [
 
     submenu: [
       {
-        label: "New Appointment",
+        label: "Add a new Assignment",
         //we can change the windowns name
 
         click() {
@@ -126,7 +126,7 @@ const menuTemplate = [
       },
 
       {
-        label: "All Appointments",
+        label: "See all Assignments",
 
         click() {
           listWindowCreator();	
