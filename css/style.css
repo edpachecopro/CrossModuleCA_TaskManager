@@ -51,3 +51,22 @@
     padding-right: 100px;
 
 }
+.profile-box {
+    background-color: #aaa;
+    border-radius: 50%;
+    width: 90px;
+    height: 90px;
+    overflow: hidden;
+    position: relative;
+    border: white 3px;
+}
+
+.img-profile {
+
+    width: 90px;
+    height: 90px;
+    width: 100%;
+    object-fit: cover;
+
+
+}

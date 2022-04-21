@@ -45,8 +45,8 @@ const createWindowCreator = () => {
     webPreferences: {
       nodeIntegration: true
     },
-    width: 600,
-    height: 400,
+    width: 1024,
+    height: 800,
     title: "Add a new Assignment"
   });
 
@@ -63,14 +63,14 @@ const listWindowCreator = () => {
     webPreferences: {
       nodeIntegration: true
     },
-    width: 600,
-    height: 400,
+    width: 1024,
+    height: 800,
     title: "See all Assignments"
   });
 
   listWindow.setMenu(null);
 
-  listWindow.loadURL(`file://${__dirname}/list.html`);
+  listWindow.loadURL(`file://${__dirname}/index.html`);
   //here we can edit the html that this will call
 
   listWindow.on("closed", () => (listWindow = null));
