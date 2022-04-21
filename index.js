@@ -11,12 +11,12 @@ let todayWindow;
 let createWindow;
 let listWindow;
 
-let allAppointments = [];
+let allTasks = [];
 
 fs.readFile("db.json", (err, jsonAppointments) => {
   if (!err) {
     const oldAppointments = JSON.parse(jsonAppointments);
-    allAppointments = oldAppointments;
+    allTasks = oldAppointments;
   }
 });
 
@@ -29,7 +29,7 @@ app.on("ready", () => {
   });
   todayWindow.loadURL(`file://${__dirname}/index.html`);
   todayWindow.on("closed", () => {
-    const jsonAppointments = JSON.stringify(allAppointments);
+    const jsonAppointments = JSON.stringify(allTasks);
     fs.writeFileSync("db.json", jsonAppointments);
 
     app.quit();
@@ -70,23 +70,23 @@ const listWindowCreator = () => {
 
   listWindow.setMenu(null);
 
-  listWindow.loadURL(`file://${__dirname}/index.html`);
+  listWindow.loadURL(`file://${__dirname}/list.html`);
   //here we can edit the html that this will call
 
   listWindow.on("closed", () => (listWindow = null));
 };
 
-ipcMain.on("appointment:create", (event, appointment) => {
-  appointment["id"] = uuid();
-  appointment["done"] = 0;
-  allAppointments.push(appointment);
+ipcMain.on("task:create", (event, task) => {
+  task["id"] = uuid();
+  task["done"] = 0;
+  allTasks.push(task);
 
   sendTodayAppointments();
-  createWindow.close();
+  // createWindow.close();
 });
 
 ipcMain.on("appointment:request:list", event => {
-  listWindow.webContents.send("appointment:response:list", allAppointments);
+  listWindow.webContents.send("appointment:response:list", allTasks);
 });
 
 ipcMain.on("appointment:request:today", event => {
@@ -94,7 +94,7 @@ ipcMain.on("appointment:request:today", event => {
 });
 
 ipcMain.on("appointment:done", (event, id) => {
-  allAppointments.forEach(appointment => {
+  allTasks.forEach(appointment => {
     if (appointment.id === id) appointment.done = 1;
   });
 
@@ -103,7 +103,7 @@ ipcMain.on("appointment:done", (event, id) => {
 
 const sendTodayAppointments = () => {
   const today = new Date().toISOString().slice(0, 10);
-  const filtered = allAppointments.filter(
+  const filtered = allTasks.filter(
     appointment => appointment.date === today
   );
   todayWindow.webContents.send("appointment:response:today", filtered);
