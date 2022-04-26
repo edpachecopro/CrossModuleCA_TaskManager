@@ -40,12 +40,33 @@
 
           
           <div class="col-9 task-cont">
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item">An item</li>
-              <li class="list-group-item">A second item</li>
-              <li class="list-group-item">A third item</li>
-              <li class="list-group-item">A fourth item</li>
-              <li class="list-group-item">And a fifth one</li>
+            <h1>List of tasks</h1>
+            <div id="list">
+              <script>
+              const electron = require("electron");
+              const { ipcRenderer } = electron;
+              ipcRenderer.send("task:request:list");
+              ipcRenderer.on("task:response:list", (event, tasks) => {
+                const listDiv = document.getElementById("list");
+                tasks.forEach((task) => {
+                  const taskDiv = document.createElement("div");
+                  const nameTask = document.createElement("p");
+                  nameTask.innerHTML = `Task: ${task.description}`;
+                  const dateTask = document.createElement("p");
+                  dateTask.innerHTML = `Due Date: ${task.date}`;
+                  const doneTask = document.createElement("p");
+                  doneTask.innerHTML = `Done: ${task.done ? "Yes" : "No"}`;
+                  const hr = document.createElement("hr");
+                  taskDiv.appendChild(nameTask);
+                  taskDiv.appendChild(dateTask);
+                  taskDiv.appendChild(doneTask);
+                  taskDiv.appendChild(hr);
+                  listDiv.append(taskDiv);
+                });
+              });
+
+            </script>
+            </div>
 
               <div class="add-new">
               <p>
@@ -59,24 +80,24 @@
                   <form id="form">
                   <div class="mb-3">
                     
-                    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Task">
+                    <input type="text" name="description" class="form-control" id="formGroupExampleInput" placeholder="Task">
                   </div>
                   <div class="mb-3">
                   
-                    <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Due">
+                    <input type="date" name="date" class="form-control" id="formGroupExampleInput2" placeholder="dd/mm/yyyy">
                   </div>
                   <div class="mb-3">
 
         
                   
-                    <select id="inputState" class="form-select">
+                    <!-- <select id="inputState" class="form-select">
                      
                       
                       <option selected>Low</option>
                       <option selected>Medium</option>
                       <option selected>High</option>
                      
-                    </select>
+                    </select> -->
                     <div class="mt-3">
                     <button class="btn btn-primary" type="submit" onclick="create()">ADD</button>
                     </div>
@@ -94,8 +115,9 @@
   </div>
     </div>
  </div>
+ <!-- Script -->
+ <script src="script.js"></script>
+ <script src="index.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/script.js"></script>
-    <!-- <script src="index.js"></script> -->
-
+ 
 </html>

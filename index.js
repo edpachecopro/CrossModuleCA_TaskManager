@@ -4,19 +4,19 @@ const fs = require("fs");
 const uuid = require("uuid");
 
 
-const { app, BrowserWindow, Menu, ipcMain } = electron;
+const { app, BrowserWindow, ipcMain } = electron;
 
 //creating windows
 let todayWindow;
-let createWindow;
-let listWindow;
+// let createWindow;
+// let listWindow;
 
 let allTasks = [];
 
-fs.readFile("db.json", (err, jsonAppointments) => {
+fs.readFile("db.json", (err, jsonTasks) => {
   if (!err) {
-    const oldAppointments = JSON.parse(jsonAppointments);
-    allTasks = oldAppointments;
+    const oldTasks = JSON.parse(jsonTasks);
+    allTasks = oldTasks;
   }
 });
 
@@ -29,123 +29,124 @@ app.on("ready", () => {
   });
   todayWindow.loadURL(`file://${__dirname}/index.html`);
   todayWindow.on("closed", () => {
-    const jsonAppointments = JSON.stringify(allTasks);
-    fs.writeFileSync("db.json", jsonAppointments);
+    const jsonTasks = JSON.stringify(allTasks);
+    fs.writeFileSync("db.json", jsonTasks);
 
     app.quit();
     todayWindow = null;
   });
 
-  const mainMenu = Menu.buildFromTemplate(menuTemplate);
-  Menu.setApplicationMenu(mainMenu);
+  // const mainMenu = Menu.buildFromTemplate(menuTemplate);
+  // Menu.setApplicationMenu(mainMenu);
+  
 });
 
-const createWindowCreator = () => {
-  createWindow = new BrowserWindow({
-    webPreferences: {
-      nodeIntegration: true
-    },
-    width: 1024,
-    height: 800,
-    title: "Add a new Assignment"
-  });
+// const createWindowCreator = () => {
+//   createWindow = new BrowserWindow({
+//     webPreferences: {
+//       nodeIntegration: true
+//     },
+//     width: 1024,
+//     height: 800,
+//     title: "Add a new Assignment"
+//   });
 
-  createWindow.setMenu(null);
+//   createWindow.setMenu(null);
 
-  createWindow.loadURL(`file://${__dirname}/create.html`);
-  //here we can edit the html that this will call
+//   createWindow.loadURL(`file://${__dirname}/create.html`);
+//   //here we can edit the html that this will call
 
-  createWindow.on("closed", () => (createWindow = null));
-};
+//   createWindow.on("closed", () => (createWindow = null));
+// };
 
-const listWindowCreator = () => {
-  listWindow = new BrowserWindow({
-    webPreferences: {
-      nodeIntegration: true
-    },
-    width: 1024,
-    height: 800,
-    title: "See all Assignments"
-  });
+// const listWindowCreator = () => {
+//   listWindow = new BrowserWindow({
+//     webPreferences: {
+//       nodeIntegration: true
+//     },
+//     width: 1024,
+//     height: 800,
+//     title: "See all Assignments"
+//   });
 
-  listWindow.setMenu(null);
+  // listWindow.setMenu(null);
 
-  listWindow.loadURL(`file://${__dirname}/list.html`);
-  //here we can edit the html that this will call
+  // listWindow.loadURL(`file://${__dirname}/list.html`);
+  // //here we can edit the html that this will call
 
-  listWindow.on("closed", () => (listWindow = null));
-};
+  // listWindow.on("closed", () => (listWindow = null));
+// };
 
 ipcMain.on("task:create", (event, task) => {
   task["id"] = uuid();
   task["done"] = 0;
   allTasks.push(task);
 
-  sendTodayAppointments();
+  // sendTodayTasks();
   // createWindow.close();
 });
 
-ipcMain.on("appointment:request:list", event => {
-  listWindow.webContents.send("appointment:response:list", allTasks);
+ipcMain.on("task:request:list", event => {
+  todayWindow.webContents.send("task:response:list", allTasks);
 });
 
-ipcMain.on("appointment:request:today", event => {
-  sendTodayAppointments();
+ipcMain.on("task:request:today", event => {
+  sendTodayTasks();
 });
 
-ipcMain.on("appointment:done", (event, id) => {
-  allTasks.forEach(appointment => {
-    if (appointment.id === id) appointment.done = 1;
+ipcMain.on("task:done", (event, id) => {
+  allTasks.forEach(task => {
+    if (task.id === id) task.done = 1;
   });
 
-  sendTodayAppointments();
+  // sendTodayTasks();
 });
 
-const sendTodayAppointments = () => {
-  const today = new Date().toISOString().slice(0, 10);
-  const filtered = allTasks.filter(
-    appointment => appointment.date === today
-  );
-  todayWindow.webContents.send("appointment:response:today", filtered);
-};
+// const sendTodayTasks = () => {
+//   const today = new Date().toISOString().slice(0, 10);
+//   const filtered = allTasks.filter(
+//     task => task.date === today
+//   );
+//   todayWindow.webContents.send("task:response:today", filtered);
+// };
 
-const menuTemplate = [
-  {
-    label: "File",
+// const menuTemplate = [
+//   {
+//     label: "File",
 
-    submenu: [
-      {
-        label: "Add a new Assignment",
-        //we can change the windowns name
+//     submenu: [
+//       {
+//         label: "Add a new Task",
+//         //we can change the windowns name
 
-        click() {
-          createWindowCreator();
-          //here we can determine what will happen when clicked here, this for example is calling
-          //the contructor created above
-        }
-      },
+//         click() {
+//           createWindowCreator();
+//           //here we can determine what will happen when clicked here, this for example is calling
+//           //the contructor created above
+//         }
+//       },
 
-      {
-        label: "See all Assignments",
+//       {
+//         label: "See all Tasks",
 
-        click() {
-          listWindowCreator();	
-        }
-      },
+//         click() {
+//           // listWindowCreator();	
+//         }
+//       },
 
-      {
-        label: "Quit",
+//       {
+//         label: "Quit",
 
-        accelerator: process.platform === "darwin" ? "Command+Q" : "Ctrl+Q",
+//         accelerator: process.platform === "darwin" ? "Command+Q" : "Ctrl+Q",
 
-        click() {
-          app.quit();
-        }
-      }
-    ]
-  },
-  {
-    label: "View",
-    submenu: [{ role: "reload" }, { role: "toggledevtools" }]
-  }
-];
+//         click() {
+//           app.quit();
+//         }
+//       }
+//     ]
+//   },
+//   {
+//     label: "View",
+//     submenu: [{ role: "reload" }, { role: "toggledevtools" }]
+//   }
+// ];
