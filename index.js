@@ -4,7 +4,7 @@ const fs = require("fs");
 const uuid = require("uuid");
 
 
-const { app, BrowserWindow, ipcMain } = electron;
+const { app, BrowserWindow, Menu, ipcMain } = electron;
 
 //creating windows
 let todayWindow;
@@ -25,6 +25,8 @@ app.on("ready", () => {
     webPreferences: {
       nodeIntegration: true
     },
+    fullscreen: true,
+
     title: "Lucas, Edgar, Keith and Douglas"
   });
   todayWindow.loadURL(`file://${__dirname}/index.html`);
@@ -36,8 +38,8 @@ app.on("ready", () => {
     todayWindow = null;
   });
 
-  // const mainMenu = Menu.buildFromTemplate(menuTemplate);
-  // Menu.setApplicationMenu(mainMenu);
+  const mainMenu = Menu.buildFromTemplate(menuTemplate);
+  Menu.setApplicationMenu(mainMenu);
   
 });
 
@@ -82,7 +84,7 @@ ipcMain.on("task:create", (event, task) => {
   task["done"] = 0;
   allTasks.push(task);
 
-  // sendTodayTasks();
+  sendTodayTasks();
   // createWindow.close();
 });
 
@@ -99,54 +101,54 @@ ipcMain.on("task:done", (event, id) => {
     if (task.id === id) task.done = 1;
   });
 
-  // sendTodayTasks();
+  sendTodayTasks();
 });
 
-// const sendTodayTasks = () => {
-//   const today = new Date().toISOString().slice(0, 10);
-//   const filtered = allTasks.filter(
-//     task => task.date === today
-//   );
-//   todayWindow.webContents.send("task:response:today", filtered);
-// };
+const sendTodayTasks = () => {
+  const today = new Date().toISOString().slice(0, 10);
+  const filtered = allTasks.filter(
+    task => task.date === today
+  );
+  todayWindow.webContents.send("task:response:today", filtered);
+};
 
-// const menuTemplate = [
-//   {
-//     label: "File",
+const menuTemplate = [
+  {
+    label: "File",
 
-//     submenu: [
-//       {
-//         label: "Add a new Task",
-//         //we can change the windowns name
+    submenu: [
+      // {
+      //   label: "Add a new Task",
+      //   //we can change the windowns name
 
-//         click() {
-//           createWindowCreator();
-//           //here we can determine what will happen when clicked here, this for example is calling
-//           //the contructor created above
-//         }
-//       },
+      //   click() {
+      //     createWindowCreator();
+      //     //here we can determine what will happen when clicked here, this for example is calling
+      //     //the contructor created above
+      //   }
+      // },
 
-//       {
-//         label: "See all Tasks",
+      // {
+      //   label: "See all Tasks",
 
-//         click() {
-//           // listWindowCreator();	
-//         }
-//       },
+      //   click() {
+      //     // listWindowCreator();	
+      //   }
+      // },
 
-//       {
-//         label: "Quit",
+      {
+        label: "Quit",
 
-//         accelerator: process.platform === "darwin" ? "Command+Q" : "Ctrl+Q",
+        accelerator: process.platform === "darwin" ? "Command+Q" : "Ctrl+Q",
 
-//         click() {
-//           app.quit();
-//         }
-//       }
-//     ]
-//   },
-//   {
-//     label: "View",
-//     submenu: [{ role: "reload" }, { role: "toggledevtools" }]
-//   }
-// ];
+        click() {
+          app.quit();
+        }
+      }
+    ]
+  },
+  {
+    label: "View",
+    submenu: [{ role: "reload" }]
+  }
+];

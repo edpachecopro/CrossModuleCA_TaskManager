@@ -34,12 +34,13 @@
 
           <div class="col-2 list-task">
             <div class="ico"> <img src="images/task-ico.svg"></div>
-            <div class="title"> Exams </div>
+            <!-- <div class="title"> Exams </div> -->
           </div>
 
 
           
           <div class="col-9 task-cont">
+            <div class="tod-list">
             <h1>List of tasks</h1>
             <div id="list">
               <script>
@@ -50,24 +51,32 @@
                 const listDiv = document.getElementById("list");
                 tasks.forEach((task) => {
                   const taskDiv = document.createElement("div");
-                  const nameTask = document.createElement("p");
-                  nameTask.innerHTML = `Task: ${task.description}`;
+                  const taskName = document.createElement("p");
+                  taskName.innerHTML = `${task.description}`;
                   const dateTask = document.createElement("p");
                   dateTask.innerHTML = `Due Date: ${task.date}`;
-                  const doneTask = document.createElement("p");
+                  const doneTask = document.createElement("label");
                   doneTask.innerHTML = `Done: ${task.done ? "Yes" : "No"}`;
+                  const doneButton = document.createElement("button");
+                  doneButton.innerHTML = "Done";
+                  doneButton.disabled = task.done ? true : false;
+                  doneButton.onclick = () => done(task.id);
                   const hr = document.createElement("hr");
-                  taskDiv.appendChild(nameTask);
+                  taskDiv.appendChild(taskName);
                   taskDiv.appendChild(dateTask);
                   taskDiv.appendChild(doneTask);
+                  taskDiv.appendChild(doneButton);
                   taskDiv.appendChild(hr);
                   listDiv.append(taskDiv);
                 });
               });
-
+              const done = (id) => {
+              ipcRenderer.send("task:done", id);
+              window.location.reload();
+      };
             </script>
             </div>
-
+          </div>
               <div class="add-new">
               <p>
 
