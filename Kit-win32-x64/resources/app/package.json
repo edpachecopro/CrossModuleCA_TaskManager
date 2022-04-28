@@ -1,0 +1,19 @@
+{
+    "name": "Project Cross Module CA",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start": "electron ."
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "-": "^0.0.1",
+        "electron": "^5.0.13",
+        "electron-builder": "^5.0.3",
+        "electron-packager": "^5.2.0",
+        "fs": "^0.0.1-security",
+        "uuid": "^3.3.2"
+    }
+}

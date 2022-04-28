@@ -1,0 +1,72 @@
+
+.task-cont{
+  
+   border-radius: 0px 20px 20px 0px;
+   margin-right: 0px;
+   padding-top: 40px;
+}
+.main-box{
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    min-height: 80vh;
+    border-radius: 20px;
+
+}
+
+.logo{
+    background-color: #D9206E;
+    min-width: 105px;
+    padding: 8px 10px 10px 15px;
+    border-radius: 20px 0px 0px 0px;
+}
+
+.menu{
+    height:80vh;
+    padding-left: 10px;
+    background-color: #0a81af;
+    min-width: 105px;
+    color: white;
+   
+    
+    border-radius: 0px 0px 0px 20px;
+}
+.ico{
+
+    width: 20%;
+}
+.list-task{
+    align-content: center;
+
+    border-right: 1px solid rgb(188, 188, 188);
+    padding-top: 40px;
+    display: inline-block !important; 
+}
+.title{
+    width: 50%;
+    float: left;
+
+    
+}
+.add-new{
+    margin-top: 40px;
+    padding-right: 100px;
+
+}
+.profile-box {
+    background-color: #aaa;
+    border-radius: 50%;
+    width: 90px;
+    height: 90px;
+    overflow: hidden;
+    position: relative;
+    border: white 3px;
+}
+
+.img-profile {
+
+    width: 90px;
+    height: 90px;
+    width: 100%;
+    object-fit: cover;
+
+
+}
