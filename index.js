@@ -25,8 +25,9 @@ app.on("ready", () => {
     webPreferences: {
       nodeIntegration: true
     },
-    fullscreen: true,
-
+    fullscreen: false,
+    width: 1280,
+    height: 850,
     title: "Lucas, Edgar, Keith and Douglas"
   });
   todayWindow.loadURL(`file://${__dirname}/index.html`);

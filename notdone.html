@@ -63,7 +63,7 @@
                   dateTask.innerHTML = `<b> Due Date: </b> ${task.date}`;
                   const doneTask = document.createElement("label");
 
-                  doneTask.innerHTML = `<b> Done: </b> ${task.done ? "Yes &nbsp; " : "No &nbsp; "}`;
+                  doneTask.innerHTML = `<b> Done: </b> ${task.done ? "Yes" : "No"}`;
                   const doneButton = document.createElement("button");
 
                   doneButton.innerHTML = "Done";
@@ -73,12 +73,14 @@
                   const hr = document.createElement("hr");
 
                   
+                  if(task.done == false) {
                   taskDiv.appendChild(taskName);
                   taskDiv.appendChild(dateTask);
                   taskDiv.appendChild(doneTask);
                   taskDiv.appendChild(doneButton);
                   taskDiv.appendChild(hr);
                   listDiv.append(taskDiv);
+                }
 
 
                 });

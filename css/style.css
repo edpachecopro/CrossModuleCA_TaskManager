@@ -1,6 +1,15 @@
 
+a:link {
+    color: rgb(255, 255, 255);
+   }
+   
+   a:hover {
+    color: rgb(255, 255, 255);
+   }
+
 .task-cont{
-  
+
+   margin-left: 50px;
    border-radius: 0px 20px 20px 0px;
    margin-right: 0px;
    padding-top: 40px;
@@ -20,6 +29,7 @@
 }
 
 .menu{
+    padding-top: 20px;
     height:80vh;
     padding-left: 10px;
     background-color: #0a81af;
@@ -38,6 +48,7 @@
 
     border-right: 1px solid rgb(188, 188, 188);
     padding-top: 40px;
+    margin-left: 50px;
     display: inline-block !important; 
 }
 .title{
@@ -67,6 +78,20 @@
     height: 90px;
     width: 100%;
     object-fit: cover;
+}
 
+.item-title{    
+    font-size: 18px;
+    font-family:Arial, Helvetica, sans-serif;
+    color: #831414;
+}
+
+.items{
+    padding: 30px 30px 5px 30px;
+
+    
+}
+
+.items-container{
 
 }
