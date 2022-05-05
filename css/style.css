@@ -7,6 +7,14 @@ a:link {
     color: rgb(255, 255, 255);
    }
 
+p{
+font-size: 14px;
+color: #494949;
+}
+h3{
+    color: #D9206E;
+}
+
 .task-cont{
 
    margin-left: 50px;
@@ -15,8 +23,9 @@ a:link {
    padding-top: 40px;
 }
 .main-box{
+    margin-top: 20px;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-    min-height: 80vh;
+    min-height: 100%;
     border-radius: 20px;
 
 }
@@ -29,8 +38,10 @@ a:link {
 }
 
 .menu{
+    text-align: center;
     padding-top: 20px;
-    height:80vh;
+    min-height: 100%;
+
     padding-left: 10px;
     background-color: #0a81af;
     min-width: 105px;
@@ -39,10 +50,16 @@ a:link {
     
     border-radius: 0px 0px 0px 20px;
 }
+
+.filter{
+    margin-top: 30px;
+}
+
 .ico{
 
     width: 20%;
 }
+
 .list-task{
     align-content: center;
 
@@ -88,10 +105,9 @@ a:link {
 
 .items{
     padding: 30px 30px 5px 30px;
-
     
 }
-
-.items-container{
-
+.test{
+    background-color: #D9206E;
 }
+

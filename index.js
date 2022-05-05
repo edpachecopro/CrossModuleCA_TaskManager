@@ -26,8 +26,8 @@ app.on("ready", () => {
       nodeIntegration: true
     },
     fullscreen: false,
-    width: 1280,
-    height: 850,
+    width: 1080,
+    height: 800,
     title: "Lucas, Edgar, Keith and Douglas"
   });
   todayWindow.loadURL(`file://${__dirname}/index.html`);

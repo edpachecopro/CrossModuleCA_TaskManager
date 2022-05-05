@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+
+  <title>KIT Reminder</title>
+</head>
+<body>
+    <script>
+
+        const electron = require("electron");
+        const { ipcRenderer } = electron;
+
+        ipcRenderer.send("task:request:list");
+
+        ipcRenderer.on("task:response:list", (event, tasks) => {
+
+          const listDiv = document.getElementById("list");
+          tasks.forEach((task) => {
+
+            const taskDiv = document.createElement("div");
+            const taskName = document.createElement("p");
+            
+            taskName.innerHTML = `<span class:"item-title" > ${task.description} </span>`;
+            const dateTask = document.createElement("p");
+
+            dateTask.innerHTML = `<b> Due Date: </b> ${task.date}`;
+            const doneTask = document.createElement("label");
+
+            doneTask.innerHTML = `<b> Done: </b> ${task.done ? "Yes &nbsp; " : "No &nbsp; "}`;
+            const doneButton = document.createElement("button");
+
+            doneButton.innerHTML = "Done";
+            doneButton.hidden = task.done ? true : false;
+
+            doneButton.onclick = () => done(task.id);
+            const hr = document.createElement("hr");
+
+            
+            taskDiv.appendChild(taskName);
+            taskDiv.appendChild(dateTask);
+            taskDiv.appendChild(doneTask);
+            taskDiv.appendChild(doneButton);
+            taskDiv.appendChild(hr);
+            listDiv.append(taskDiv);
+
+
+          });
+        });
+        const done = (id) => {
+        ipcRenderer.send("task:done", id);
+        window.location.reload();
+};
+      </script>
+</body>
+
+ <!-- Script -->
+ <script src="script.js"></script>
+ <script src="index.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+</html>

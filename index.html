@@ -30,18 +30,24 @@
                   <img class="img-profile" src="images/profile.jpeg">
                </div>
 
+               <div class="filter">
                <a href="index.html">All</a><br>
                <a href="done.html">Done</a><br>
                <a href="notdone.html">Not Done</a>
+              </div>
+
+         
 
             </div>
           </div>
           
           <div class="col-9 task-cont">
             <div class="tod-list">
-            <h1>List of tasks</h1>
+            <h1>All tasks</h1>
             <div class="items-container">
             <div id="list" class="items">
+
+              
               <script>
 
               const electron = require("electron");
@@ -55,9 +61,9 @@
                 tasks.forEach((task) => {
 
                   const taskDiv = document.createElement("div");
-                  const taskName = document.createElement("p");
+                  const taskName = document.createElement("h3");
                   
-                  taskName.innerHTML = `<span class:"item-title" > ${task.description} </span>`;
+                  taskName.innerHTML = `${task.description}`;
                   const dateTask = document.createElement("p");
 
                   dateTask.innerHTML = `<b> Due Date: </b> ${task.date}`;
@@ -67,15 +73,15 @@
                   const doneButton = document.createElement("button");
 
                   doneButton.innerHTML = "Done";
-                  doneButton.disabled = task.done ? true : false;
+                  doneButton.hidden = task.done ? true : false;
 
                   doneButton.onclick = () => done(task.id);
                   const hr = document.createElement("hr");
 
-                  
+               
                   taskDiv.appendChild(taskName);
                   taskDiv.appendChild(dateTask);
-                  taskDiv.appendChild(doneTask);
+                  
                   taskDiv.appendChild(doneButton);
                   taskDiv.appendChild(hr);
                   listDiv.append(taskDiv);
